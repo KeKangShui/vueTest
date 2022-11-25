@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>应用elementUI</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.13.2/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.13.2/lib/index.js"></script>
+</head>
+
+<body>
+
+    <div id="myVue">
+        <div class="block">
+            <span class="demonstration">默认</span>
+            <el-date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期"
+                end-placeholder="结束日期" @change="selectRange">
+            </el-date-picker>
+        </div>
+
+        <div class="block">
+            <span class="demonstration">默认日</span>
+            <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+            </el-date-picker>
+        </div>
+
+        <div class="block">
+            <span class="demonstration">默认月</span>
+            <el-date-picker v-model="value1" type="month" placeholder="选择日期">
+            </el-date-picker>
+        </div>
+
+        <div class="block">
+            <span class="demonstration">默认年</span>
+            <!-- <el-form-item label="翟年">
+        
+            </el-form-item> -->
+            <el-date-picker v-model="value1" type="year" @change="selectTime" placeholder="选择日期">
+            </el-date-picker>
+        </div>
+
+        <el-breadcrumb separator-class="el-icon-arrow-right" @change="sel">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/page1/' }">活动管理</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/page2/' }">活动列表</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/page3/' }">活动详情</el-breadcrumb-item>
+          </el-breadcrumb>
+          
+    </div>
+
+    <script>
+        new Vue({
+            el: "#myVue",
+            data: {
+                pickerOptions: {
+                    shortcuts: [{
+                        text: '最近一周',
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }, {
+                        text: '最近一个月',
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }, {
+                        text: '最近三个月',
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }]
+                },
+                value1: '',
+                value2: ''
+            },
+            methods: {
+                selectTime(val) {
+                    if (val) {
+                        console.log("val: " + val)
+                        // this.filters.year = val.split('-')[0]
+                        // this.filters.month = val.split('-')[1]
+                    } else {
+                        this.filters.year = ""
+                        this.filters.month = ""
+                    }
+                },
+                selectRange(val){
+                    console.log(val);
+                },
+                sel(val){
+                    console.log(val)
+                }
+
+            }
+        });
+
+        // function selectTime(val){
+        //     if(val){
+        //         console.log("val: "+val)
+        //         this.filters.year = val.split('-')[0]
+        //         this.filters.month = val.split('-')[1]
+        //     }else{
+        //         this.filters.year = ""
+        //         this.filters.month = ""
+        //     }
+        // }
+
+    </script>
+</body>
+
+</html>
